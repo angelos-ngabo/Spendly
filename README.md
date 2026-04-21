@@ -1,6 +1,6 @@
 # Spendly
 
-Spendly is a **portfolio-grade personal expense tracker** with a SaaS-style UI. Track income and expenses, filter and analyze activity, export backups, and choose how you store data:
+Spendly is a **personal project**: a web app for tracking income and expenses with a SaaS-style UI. Run it locally, use guest mode, or connect **Firebase** for sign-in and cloud sync.
 
 - **Guest mode** — start immediately; data stays in the browser (`localStorage`).
 - **Authenticated mode** — email/password via **Firebase Authentication** with transactions synced to **Cloud Firestore** under your user ID.
@@ -14,7 +14,7 @@ No custom backend server is required beyond Firebase.
 - **Dashboard**: totals, balance, recent activity, category pie chart, monthly bar chart, welcome / sample data.
 - **Transactions**: CRUD with `react-hook-form` + Zod, filters, search, sort, CSV export of filtered rows.
 - **Analytics**: insights, trends, rankings.
-- **Settings**: CSV + JSON export, JSON import (backup or raw array, merge/replace), demo data, reset, account summary, sign out.
+- **Settings**: currency preferences, CSV + JSON export, JSON import (backup or raw array, merge/replace), demo data, reset, account summary, sign out.
 - **UX**: responsive shell (sidebar + mobile drawer), dark/light theme, confirmations, toasts, empty states, loading and error states for Firestore.
 
 ## Tech stack
@@ -23,7 +23,18 @@ No custom backend server is required beyond Firebase.
 - Tailwind CSS v4 (`@tailwindcss/vite`)
 - shadcn-style UI (Radix primitives + CVA)
 - Firebase **Auth** (email/password) + **Firestore**
-- `lucide-react`, `recharts`, `react-hook-form`, `zod`, `date-fns`, `sonner`, `next-themes`, `clsx`, `tailwind-merge`
+- `lucide-react`, `recharts`, `react-hook-form`, `zod`, `date-fns`, `sonner`, `next-themes`, `framer-motion`, `clsx`, `tailwind-merge`
+
+## Credits and design sources
+
+Spendly’s UI borrows structure and visual language from published Figma work. Attribution:
+
+| Source | Use in this repo |
+| --- | --- |
+| **Financen** (finance landing / Figma kit) | Marketing landing assets under `public/landing/`, hero cover, feature band layout, and related marketing copy structure (see comments in `src/components/marketing/`). |
+| **[DataPharma — Dashboard Financeiro](https://www.figma.com/community/file/kX65zNBWVX4gqIyA8aEJxV)** (Figma Community) | Dashboard shell and elevated metric tiles (`stat-card`, dashboard layout — see `src/pages/dashboard-page.tsx` and `src/components/shared/stat-card.tsx`). |
+
+Illustrations and device mockups may be **local exports** or placeholders placed in `public/landing/` and `public/landing/devices/`; replace with your own assets for redistribution.
 
 ## Environment variables
 
@@ -113,11 +124,11 @@ npm run preview
 ## Project structure (high level)
 
 - `src/services/firebase` — Firebase app init + Firestore transaction helpers
-- `src/context` — `AuthProvider` / `useAuth`
+- `src/context` — `AuthProvider` / `useAuth`, currency preferences
 - `src/store` — `TransactionsProvider` / `useTransactions` (guest vs cloud)
 - `src/pages` — landing, auth, dashboard, transactions, analytics, settings
-- `src/components` — layout, dashboard, transactions, shared, `ui`
-- `src/lib` — schemas, guest storage helpers, formatting
+- `src/components` — layout, dashboard, transactions, marketing, shared, `ui`
+- `src/lib` — schemas, guest storage helpers, formatting, currencies
 - `src/hooks` — local guest transactions + summaries
 
 ## Scripts
@@ -127,27 +138,6 @@ npm run preview
 - `npm run preview` — preview production build
 - `npm run lint` — ESLint
 
-## Suggested commit strategy
-
-1. `chore: scaffold vite react ts tailwind`
-2. `feat(ui): layout, theme, primitives`
-3. `feat(auth): firebase auth + guest session`
-4. `feat(data): firestore + guest transaction providers`
-5. `feat(transactions): crud, filters, export`
-6. `feat(insights): dashboard + analytics`
-7. `docs: readme, env example, firestore rules`
-
-## Push to GitHub
-
-```bash
-git init
-git add .
-git commit -m "feat: Spendly expense tracker with Firebase"
-git branch -M main
-git remote add origin https://github.com/angelos-ngabo/Spendly.git
-git push -u origin main
-```
-
 ## License
 
-Private / portfolio usage unless you choose otherwise.
+Personal project — use and modify for your own learning and deployment. Respect the licenses of third-party templates and assets listed under **Credits**.
