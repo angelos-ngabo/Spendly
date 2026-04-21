@@ -24,7 +24,7 @@ export function AuthSubmitButton({
       type="submit"
       disabled={loading || props.disabled}
       className={cn(
-        'w-full max-w-[440px] text-sm font-semibold text-primary-foreground transition hover:bg-primary/90',
+        'w-full text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 md:max-w-[440px]',
         shape === 'figma'
           ? 'h-[54px] rounded-lg bg-primary shadow-md shadow-primary/15'
           : 'h-12 rounded-full bg-primary shadow-lg shadow-primary/20',

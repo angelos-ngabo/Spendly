@@ -84,7 +84,7 @@ export function subscribeUserTransactions(
   return onSnapshot(
     userTransactionsQuery(uid),
     (snap) => onData(snapshotToRows(snap)),
-    (err) => onError(err.message ?? 'Unknown Firestore error'),
+    (err) => onError(err.message ?? 'Unknown sync error'),
   )
 }
 

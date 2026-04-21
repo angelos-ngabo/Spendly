@@ -8,12 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useFinancialSnapshot } from '@/hooks/useFinancialSnapshot'
 import { useTransactionSummaries } from '@/hooks/useTransactionSummaries'
-import { formatCurrency } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { useSavings } from '@/store/savings-context'
 import { useTransactions } from '@/store/transactions-context'
 import { expenseTotalsByCategory } from '@/utils/transactions'
 
 export function AnalyticsPage() {
+  const { formatMoney } = useMoneyFormat()
   const { transactions, transactionsLoading, transactionsError } = useTransactions()
   const { savings, savingsLoading, savingsError } = useSavings()
   const { summary, byCategory, trend, topExpense, month } = useTransactionSummaries(transactions)
@@ -43,7 +44,7 @@ export function AnalyticsPage() {
         <StatCard
           title="Highest expense category"
           value={topExpense ? topExpense.category : '—'}
-          hint={topExpense ? `${formatCurrency(topExpense.amount)} all time` : 'Add expenses to see insights'}
+          hint={topExpense ? `${formatMoney(topExpense.amount)} all time` : 'Add expenses to see insights'}
           icon={FolderKanban}
           accent="muted"
         />
@@ -124,7 +125,7 @@ export function AnalyticsPage() {
                         <div className="text-xs text-muted-foreground">Expense total</div>
                       </div>
                     </div>
-                    <div className="text-sm font-semibold tabular-nums">{formatCurrency(row.amount)}</div>
+                    <div className="text-sm font-semibold tabular-nums">{formatMoney(row.amount)}</div>
                   </div>
                 ))
               ) : (

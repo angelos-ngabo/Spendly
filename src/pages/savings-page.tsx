@@ -18,13 +18,14 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { useFinancialSnapshot } from '@/hooks/useFinancialSnapshot'
-import { formatCurrency } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { cn } from '@/lib/utils'
 import { useSavings } from '@/store/savings-context'
 import { useTransactions } from '@/store/transactions-context'
 import { savingsByMonth } from '@/utils/savings'
 
 export function SavingsPage() {
+  const { formatMoney } = useMoneyFormat()
   const { transactions, transactionsLoading, transactionsError } = useTransactions()
   const { savings, savingsLoading, savingsError, deleteSaving } = useSavings()
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -142,7 +143,7 @@ export function SavingsPage() {
                       </div>
                       <div className="flex shrink-0 items-center gap-3">
                         <span className="text-lg font-semibold tabular-nums text-foreground">
-                          {formatCurrency(s.amount)}
+                          {formatMoney(s.amount)}
                         </span>
                         <Button
                           type="button"

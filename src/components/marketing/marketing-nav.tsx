@@ -26,8 +26,8 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
           <a href="#features" className={linkClass}>
             Features
           </a>
-          <a href="#stories" className={linkClass}>
-            Stories
+          <a href="#devices" className={linkClass}>
+            Devices
           </a>
           <a href="#demo" className={linkClass}>
             Product tour

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { formatCurrency } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { cn } from '@/lib/utils'
 
 export function AnimatedCurrency({
@@ -11,6 +11,7 @@ export function AnimatedCurrency({
   className?: string
   durationMs?: number
 }) {
+  const { formatMoney } = useMoneyFormat()
   const [display, setDisplay] = useState(0)
   const fromRef = useRef(0)
   const rafRef = useRef(0)
@@ -39,11 +40,11 @@ export function AnimatedCurrency({
     cancelAnimationFrame(rafRef.current)
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
-  }, [value, durationMs])
+  }, [value, durationMs, formatMoney])
 
   return (
     <span className={cn('tabular-nums tracking-tight text-foreground', className)}>
-      {formatCurrency(display)}
+      {formatMoney(display)}
     </span>
   )
 }

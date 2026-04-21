@@ -130,8 +130,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signInWithEmail = useCallback(
     async (email: string, password: string): Promise<SignInEmailResult> => {
       if (!firebaseEnabled) {
-        toast.error('Firebase is not configured')
-        throw new Error('Firebase is not configured')
+        toast.error('Cloud sign-in is not available in this build.')
+        throw new Error('Cloud sign-in is not available in this build.')
       }
       const auth = getFirebaseAuth()
       const hadGuest = readGuestSessionFlag()
@@ -158,8 +158,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUpWithEmail = useCallback(
     async (values: SignUpValues) => {
       if (!firebaseEnabled) {
-        toast.error('Firebase is not configured')
-        throw new Error('Firebase is not configured')
+        toast.error('Cloud sign-in is not available in this build.')
+        throw new Error('Cloud sign-in is not available in this build.')
       }
       const country = countryByIso(values.phoneCountryIso)
       if (!country) {
@@ -208,7 +208,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const resendEmailVerification = useCallback(async () => {
     if (!firebaseEnabled) {
-      throw new Error('Firebase is not configured')
+      throw new Error('Cloud sign-in is not available in this build.')
     }
     const auth = getFirebaseAuth()
     const u = auth.currentUser

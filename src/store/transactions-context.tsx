@@ -278,7 +278,7 @@ function CloudTransactionsProvider({ uid, children }: { uid: string; children: R
         await mergeUserTransactions(uid, res.data)
         return { ok: true as const, count: res.data.length }
       } catch {
-        return { ok: false as const, message: 'Could not import into Firestore' }
+        return { ok: false as const, message: 'Could not import into cloud storage' }
       }
     },
     [uid],

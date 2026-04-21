@@ -24,7 +24,7 @@ export function GuestUpgradeBanner() {
           <div className="min-w-0">
             <div className="text-sm font-semibold tracking-tight text-foreground">Browsing as a guest</div>
             <p className="mt-1 max-w-prose text-sm leading-relaxed text-muted-foreground">
-              Data stays on this device. Create a free account to sync privately across devices with Firebase.
+              Data stays on this device. Create a free account to sync privately across your devices.
             </p>
           </div>
         </div>
@@ -41,9 +41,9 @@ export function GuestUpgradeBanner() {
           ) : (
             <div className="max-w-md text-xs leading-relaxed text-muted-foreground">
               <p>
-                Add six <code className="rounded bg-muted px-1 font-mono text-[10px]">VITE_FIREBASE_*</code>{' '}
-                variables to <code className="rounded bg-muted px-1 font-mono text-[10px]">.env</code> in the
-                project root, then restart <code className="rounded bg-muted px-1 font-mono text-[10px]">npm run dev</code>.
+                Add the six web config variables from <code className="rounded bg-muted px-1 font-mono text-[10px]">.env.example</code> to{' '}
+                <code className="rounded bg-muted px-1 font-mono text-[10px]">.env</code> in the project root, then restart{' '}
+                <code className="rounded bg-muted px-1 font-mono text-[10px]">npm run dev</code>.
               </p>
               {firebaseMissingEnvVars.length > 0 ? (
                 <p className="mt-1.5 break-words font-mono text-[10px] text-foreground/80">

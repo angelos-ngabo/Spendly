@@ -38,7 +38,7 @@ export function isFirebaseConfigured(): boolean {
 
 function getOrInitApp(): FirebaseApp {
   if (!isFirebaseConfigured()) {
-    throw new Error('Firebase is not configured. Add VITE_FIREBASE_* variables to your .env file.')
+    throw new Error('Web client is not configured. Add all keys from .env.example to your .env file.')
   }
   if (!app) {
     const e = readFirebaseEnv()

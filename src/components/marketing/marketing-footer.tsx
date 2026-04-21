@@ -8,7 +8,7 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
         <div>
           <h3 className="text-sm font-bold text-[#252B42]">Spendly</h3>
           <p className="mt-2 text-xs font-medium leading-relaxed text-[#737373]">
-            Personal finance workspace with local-first guest mode and optional Firebase sync.
+            Personal finance workspace with local-first guest mode and optional cloud sync.
           </p>
         </div>
         <div>
@@ -20,8 +20,8 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
               </a>
             </li>
             <li>
-              <a href="#stories" className="hover:text-[#23A6F0]">
-                Stories
+              <a href="#devices" className="hover:text-[#23A6F0]">
+                Devices
               </a>
             </li>
             <li>
@@ -62,7 +62,7 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
                 </li>
               </>
             ) : (
-              <li className="text-[11px] leading-relaxed">Cloud accounts require Firebase configuration.</li>
+              <li className="text-[11px] leading-relaxed">Cloud accounts require environment configuration.</li>
             )}
           </ul>
           {!firebaseEnabled ? (
@@ -73,15 +73,7 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-6xl border-t border-[#E5E5E5] px-4 pt-6 text-center text-[10px] font-semibold text-[#9A9A9A] md:px-6">
-        © {new Date().getFullYear()} Spendly · Design adapted from{' '}
-        <a
-          href="https://www.figma.com/design/nTZiydYDfolquJ54Yf9wQj/Financen---html-finance-web-page--Community-"
-          className="text-[#737373] underline-offset-2 hover:text-[#23A6F0] hover:underline"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Financen (Community)
-        </a>
+        © {new Date().getFullYear()} Spendly
       </div>
     </footer>
   )

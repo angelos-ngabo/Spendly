@@ -10,6 +10,7 @@ import { AuthCard } from '@/components/auth/auth-card'
 import { EmailVerificationPending } from '@/components/auth/email-verification-pending'
 import { AuthFormError } from '@/components/auth/auth-form-error'
 import { AuthLayout } from '@/components/auth/auth-layout'
+import { AuthSupportingHighlights } from '@/components/auth/auth-supporting-highlights'
 import { AuthPasswordField } from '@/components/auth/auth-password-field'
 import { AuthSubmitButton } from '@/components/auth/auth-submit-button'
 import { AuthTextField } from '@/components/auth/auth-textfield'
@@ -103,24 +104,25 @@ export function SignInPage() {
   })
 
   return (
-    <AuthLayout mode="sign-in">
-      {firebaseEnabled && verifiedBanner && !user ? (
-        <div className="mb-6">
-          <AlertBanner
-            variant="success"
-            message="Your email has been verified successfully. You can now sign in."
-            dismissible
-            autoHideMs={7000}
-            onDismiss={dismissVerifiedBanner}
-          />
-        </div>
-      ) : null}
-      <AuthCard
-        variant="plain"
-        preTitle={<span aria-hidden>👋</span>}
-        title="Welcome back!"
-        description="Please login to access your account."
-      >
+    <AuthLayout>
+      <div className="flex w-full flex-col">
+        {firebaseEnabled && verifiedBanner && !user ? (
+          <div className="mb-6 shrink-0">
+            <AlertBanner
+              variant="success"
+              message="Your email has been verified successfully. You can now sign in."
+              dismissible
+              autoHideMs={7000}
+              onDismiss={dismissVerifiedBanner}
+            />
+          </div>
+        ) : null}
+        <AuthCard
+          variant="plain"
+          preTitle={<span aria-hidden>👋</span>}
+          title="Welcome back!"
+          description="Please login to access your account."
+        >
         {!firebaseEnabled ? (
           <FirebaseSetupHelp className="mt-8 text-xs sm:text-sm" />
         ) : user && !user.emailVerified ? (
@@ -165,7 +167,7 @@ export function SignInPage() {
               </div>
             ) : null}
 
-            <form className="mt-14 flex max-w-[440px] flex-col gap-[30px]" onSubmit={onSubmit} noValidate>
+            <form className="mt-6 flex w-full flex-col gap-5 sm:mt-8 sm:gap-6 md:max-w-[440px] md:gap-7 lg:mt-10" onSubmit={onSubmit} noValidate>
               <AuthFormError message={formError} />
               <AuthTextField
                 id="email"
@@ -213,10 +215,21 @@ export function SignInPage() {
           </>
         )}
 
-        <div className="mt-10 text-center text-sm text-muted-foreground">
-          <BackToHomeLink className="font-semibold text-primary underline-offset-4 hover:underline" />
-        </div>
-      </AuthCard>
+        </AuthCard>
+
+        {firebaseEnabled ? (
+          <div className="mt-10 flex w-full shrink-0 flex-col gap-6 md:mt-12 md:gap-8">
+            <AuthSupportingHighlights density="comfortable" className="hidden md:grid" />
+            <div className="text-center text-sm text-muted-foreground">
+              <BackToHomeLink className="font-semibold text-primary underline-offset-4 hover:underline" />
+            </div>
+          </div>
+        ) : (
+          <div className="mt-8 shrink-0 text-center text-sm text-muted-foreground">
+            <BackToHomeLink className="font-semibold text-primary underline-offset-4 hover:underline" />
+          </div>
+        )}
+      </div>
     </AuthLayout>
   )
 }

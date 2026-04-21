@@ -1,4 +1,4 @@
-/** Maps Firebase Auth error codes to concise, user-facing copy. */
+/** Maps hosted auth error codes to concise, user-facing copy. */
 export function mapFirebaseAuthError(e: unknown): string {
   const code =
     e && typeof e === 'object' && 'code' in e ? String((e as { code?: string }).code) : ''

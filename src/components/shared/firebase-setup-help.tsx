@@ -7,6 +7,10 @@ export function FirebaseSetupHelp({ className }: { className?: string }) {
   return (
     <div className={cn('space-y-3 text-sm leading-relaxed text-muted-foreground', className)}>
       <p>
+        Cloud sign-in needs a few configuration values from whoever set up this deployment. If you are just trying the
+        app, ask them to add the missing entries below.
+      </p>
+      <p>
         Put keys in a file named <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-xs">.env</code>{' '}
         or <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-xs">.env.local</code> in the{' '}
         <strong className="font-medium text-foreground">project root</strong> (next to{' '}

@@ -1,5 +1,4 @@
 import { endOfMonth, format, parseISO, subMonths } from 'date-fns'
-import { formatCurrency } from '@/lib/format'
 import type { Saving } from '@/types/saving'
 import type { MonthlyPoint, Transaction } from '@/types/transaction'
 import {
@@ -211,8 +210,12 @@ function noDataCopy(): string {
   return 'Add a few income and expense transactions (or savings reservations) to unlock personalized insights. Once your ledger has activity, I can break down spending, savings, and trends for you.'
 }
 
-export function getSpendlyAiAnswer(id: SpendlyAiQuestionId, a: SpendlyAiAnalytics): string {
-  const fc = formatCurrency
+export function getSpendlyAiAnswer(
+  id: SpendlyAiQuestionId,
+  a: SpendlyAiAnalytics,
+  formatMoney: (amount: number) => string,
+): string {
+  const fc = formatMoney
   const { summary, month, prevMonthLabel } = a
 
   const hasActivity = summary.count > 0 || a.totalReservedSavings > 0

@@ -43,9 +43,10 @@ export function CategoryPieChart({
           Expense totals across your tracked categories
         </CardDescription>
       </CardHeader>
-      <CardContent className="min-h-[280px] px-2 pb-6 pt-1 sm:px-6">
+      <CardContent className="min-h-[260px] px-2 pb-6 pt-1 sm:min-h-[280px] sm:px-6">
         {chartData.length ? (
-          <ResponsiveContainer width="100%" height={300}>
+          <div className="mx-auto h-[240px] w-full max-w-[min(100%,420px)] sm:h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Tooltip
                 cursor={false}
@@ -75,6 +76,7 @@ export function CategoryPieChart({
               </Pie>
             </PieChart>
           </ResponsiveContainer>
+          </div>
         ) : (
           <EmptyState
             className="min-h-[260px] border-0 bg-transparent py-12 shadow-none md:py-14"

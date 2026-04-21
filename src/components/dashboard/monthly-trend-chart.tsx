@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'recharts'
 import { ChartTooltipContent, type ChartTooltipPayloadEntry } from '@/components/dashboard/chart-tooltip'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { EmptyState } from '@/components/shared/empty-state'
 import type { MonthlyPoint } from '@/types/transaction'
 import { formatMonthYear } from '@/lib/format'
@@ -22,6 +23,7 @@ export function MonthlyTrendChart({
   data: MonthlyPoint[]
   appearance?: 'default' | 'datapharma'
 }) {
+  const { formatMoney } = useMoneyFormat()
   const rows = data.slice(-10).map((d) => ({
     ...d,
     label: formatMonthYear(d.month),
@@ -48,10 +50,11 @@ export function MonthlyTrendChart({
           Income versus expenses by month
         </CardDescription>
       </CardHeader>
-      <CardContent className="min-h-[280px] px-1 pb-6 pt-1 sm:px-2">
+      <CardContent className="min-h-[260px] px-1 pb-6 pt-1 sm:min-h-[280px] sm:px-2">
         {rows.length ? (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={rows} margin={{ top: 12, right: 8, left: -8, bottom: 4 }}>
+          <div className="h-[240px] w-full sm:h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={rows} margin={{ top: 12, right: 4, left: 4, bottom: 4 }}>
               <CartesianGrid strokeDasharray="4 4" stroke="var(--border)" vertical={false} opacity={0.85} />
               <XAxis
                 dataKey="label"
@@ -63,9 +66,15 @@ export function MonthlyTrendChart({
               <YAxis
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }}
-                tickFormatter={(v) => (Math.abs(v) >= 1000 ? `${Math.round(v / 1000)}k` : `${v}`)}
-                width={40}
+                tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }}
+                tickFormatter={(v) => {
+                  const n = Number(v)
+                  if (!Number.isFinite(n)) return ''
+                  if (Math.abs(n) >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
+                  if (Math.abs(n) >= 1000) return `${Math.round(n / 1000)}k`
+                  return formatMoney(n)
+                }}
+                width={48}
               />
               <Tooltip
                 cursor={{ fill: 'var(--muted)', opacity: 0.35 }}
@@ -93,6 +102,7 @@ export function MonthlyTrendChart({
               />
             </BarChart>
           </ResponsiveContainer>
+          </div>
         ) : (
           <EmptyState
             className="min-h-[260px] border-0 bg-transparent py-12 shadow-none md:py-14"

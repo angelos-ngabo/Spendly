@@ -36,6 +36,7 @@ export function validateSavingsReservation(
   input: SavingsReservationInput,
   transactions: Transaction[],
   savings: Saving[],
+  formatMoney: (amount: number) => string = (n) => formatCurrency(n),
 ): { ok: true } | { ok: false; message: string } {
   const title = input.title.trim()
   if (!title) {
@@ -62,7 +63,7 @@ export function validateSavingsReservation(
   if (input.amount > available) {
     return {
       ok: false,
-      message: `You can reserve at most ${formatCurrency(available)} — your remaining positive balance after existing savings.`,
+      message: `You can reserve at most ${formatMoney(available)} — your remaining positive balance after existing savings.`,
     }
   }
 

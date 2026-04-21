@@ -109,7 +109,7 @@ export function VerifyEmailPage() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col bg-background px-4 py-10 text-foreground sm:px-6 sm:py-14">
+    <div className="flex min-h-svh flex-col bg-background px-4 py-10 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-[max(2.5rem,env(safe-area-inset-top))] text-foreground sm:px-6 sm:py-14">
       <div className="mx-auto flex w-full max-w-lg flex-1 flex-col">
         <header className="mb-10 flex justify-center sm:mb-12">
           <SpendlyWordmark asLink />
@@ -119,7 +119,7 @@ export function VerifyEmailPage() {
           {!firebaseEnabled ? (
             <div className="w-full max-w-md">
               <p className="mb-4 text-center text-sm text-muted-foreground">
-                Firebase is not configured, so verification links cannot be processed in this build.
+                Cloud sign-in is not configured, so verification links cannot be processed in this build.
               </p>
               <FirebaseSetupHelp />
             </div>

@@ -109,7 +109,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
           onClick={onNavigate}
           className={({ isActive }) =>
             cn(
-              'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium tracking-tight transition-all duration-200',
+              'flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium tracking-tight transition-all duration-200 md:min-h-0',
               isActive
                 ? 'bg-foreground/[0.06] text-foreground shadow-sm ring-1 ring-border/80 dark:bg-white/[0.06] dark:ring-white/10'
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground',

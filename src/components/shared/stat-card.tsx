@@ -74,7 +74,7 @@ export function StatCard({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-2xl border p-5 text-foreground md:p-6',
+        'relative min-w-0 overflow-hidden rounded-2xl border p-5 text-foreground md:p-6',
         shell,
         className,
       )}

@@ -18,7 +18,7 @@ import { savingFormSchema, type SavingFormValues } from '@/lib/schemas'
 import { useSavings } from '@/store/savings-context'
 import { useTransactions } from '@/store/transactions-context'
 import { availableToReserve, ledgerBalance, totalSavingsAmount } from '@/utils/savings'
-import { formatCurrency } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 
 function defaultValues(): SavingFormValues {
   return {
@@ -36,6 +36,7 @@ export function SavingsFormDialog({
   open: boolean
   onOpenChange: (open: boolean) => void
 }) {
+  const { formatMoney } = useMoneyFormat()
   const { transactions } = useTransactions()
   const { savings, addSaving } = useSavings()
   const form = useForm<SavingFormValues>({
@@ -83,11 +84,11 @@ export function SavingsFormDialog({
             </span>
           ) : (
             <>
-              Ledger balance: <span className="font-semibold text-foreground">{formatCurrency(ledger)}</span>
+              Ledger balance: <span className="font-semibold text-foreground">{formatMoney(ledger)}</span>
               {' · '}
-              Reserved: <span className="font-semibold text-foreground">{formatCurrency(reserved)}</span>
+              Reserved: <span className="font-semibold text-foreground">{formatMoney(reserved)}</span>
               {' · '}
-              Can still allocate: <span className="font-semibold text-foreground">{formatCurrency(available)}</span>
+              Can still allocate: <span className="font-semibold text-foreground">{formatMoney(available)}</span>
             </>
           )}
         </div>

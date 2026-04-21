@@ -28,7 +28,8 @@ import {
 } from '@/components/ui/table'
 import { CategoryBadge } from '@/components/shared/category-badge'
 import { EmptyState } from '@/components/shared/empty-state'
-import { formatCurrency, formatDisplayDate } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
+import { formatDisplayDate } from '@/lib/format'
 import { useTransactions } from '@/store/transactions-context'
 import type { Transaction } from '@/types/transaction'
 import { cn } from '@/lib/utils'
@@ -45,6 +46,7 @@ export function TransactionsTable({
   onEdit: (t: Transaction) => void
   onAdd: () => void
 }) {
+  const { formatMoney } = useMoneyFormat()
   const { deleteTransaction } = useTransactions()
   const [pendingDelete, setPendingDelete] = useState<Transaction | null>(null)
 
@@ -70,6 +72,7 @@ export function TransactionsTable({
 
   return (
     <>
+      <div className="-mx-1 w-[calc(100%+0.5rem)] overflow-x-auto sm:mx-0 sm:w-full sm:overflow-visible">
       <Table>
         <TableHeader>
           <TableRow>
@@ -106,7 +109,7 @@ export function TransactionsTable({
                 )}
               >
                 {t.type === 'income' ? '+' : '-'}
-                {formatCurrency(t.amount)}
+                {formatMoney(t.amount)}
               </TableCell>
               <TableCell className="text-right">
                 <DropdownMenu>
@@ -134,6 +137,7 @@ export function TransactionsTable({
           ))}
         </TableBody>
       </Table>
+      </div>
 
       <AlertDialog open={Boolean(pendingDelete)} onOpenChange={(open) => !open && setPendingDelete(null)}>
         <AlertDialogContent>

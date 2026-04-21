@@ -1,4 +1,4 @@
-import { formatCurrency } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { cn } from '@/lib/utils'
 
 export type ChartTooltipPayloadEntry = {
@@ -18,6 +18,7 @@ export function ChartTooltipContent({
   label?: string
   className?: string
 }) {
+  const { formatMoney } = useMoneyFormat()
   if (!active || !payload?.length) return null
 
   return (
@@ -33,7 +34,7 @@ export function ChartTooltipContent({
           <div key={String(p.dataKey)} className="flex items-center justify-between gap-6">
             <span className="text-muted-foreground">{p.name}</span>
             <span className="font-medium tabular-nums text-foreground">
-              {formatCurrency(Number(p.value ?? 0))}
+              {formatMoney(Number(p.value ?? 0))}
             </span>
           </div>
         ))}

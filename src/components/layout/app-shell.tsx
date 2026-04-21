@@ -36,7 +36,7 @@ export function AppShell() {
           <AppSidebar />
 
           <div className="flex min-w-0 flex-1 flex-col">
-            <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/50 bg-background/80 px-4 py-3 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 md:hidden">
+            <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/50 bg-background/80 px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 md:hidden">
               <div className="flex min-w-0 items-center gap-2">
                 <Button
                   type="button"
@@ -61,7 +61,7 @@ export function AppShell() {
               <MobileWorkspaceActions onOpenAi={() => setMobileAiOpen(true)} showAiButton />
             </header>
 
-            <main className="flex min-w-0 flex-1 justify-center px-4 pb-12 pt-5 md:px-6 md:pb-16 md:pt-8 lg:px-10">
+            <main className="flex min-w-0 flex-1 justify-center px-3 pb-[max(3rem,env(safe-area-inset-bottom))] pt-4 sm:px-4 sm:pb-12 sm:pt-5 md:px-6 md:pb-16 md:pt-8 lg:px-10">
               <div className="mx-auto w-full max-w-6xl">
                 <AccountStrip />
                 <GuestUpgradeBanner />
@@ -108,18 +108,34 @@ export function AppShell() {
             aria-label="Close Spendly AI"
             onClick={() => setMobileAiOpen(false)}
           />
-          <div className="absolute right-0 top-0 flex h-full w-[min(92vw,400px)] max-w-[100vw] flex-col border-l border-border/60 bg-background shadow-2xl shadow-black/25">
-            <div className="flex items-center justify-between border-b border-border/50 px-4 py-3.5">
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Assistant</div>
-                <div className="text-sm font-semibold tracking-tight">Spendly AI</div>
+          <div
+            className="absolute inset-x-0 bottom-0 flex max-h-[min(92dvh,720px)] flex-col rounded-t-3xl border border-border/60 border-b-0 bg-background shadow-[0_-12px_48px_rgba(0,0,0,0.18)]"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="spendly-ai-mobile-title"
+          >
+            <div className="flex shrink-0 flex-col items-center gap-2 border-b border-border/50 px-4 pb-3 pt-2">
+              <div className="h-1 w-10 rounded-full bg-muted-foreground/30" aria-hidden />
+              <div className="flex w-full items-center justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Assistant</div>
+                  <div id="spendly-ai-mobile-title" className="text-sm font-semibold tracking-tight">
+                    Spendly AI
+                  </div>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-10 rounded-xl px-3"
+                  onClick={() => setMobileAiOpen(false)}
+                >
+                  Close
+                </Button>
               </div>
-              <Button type="button" variant="ghost" size="sm" className="rounded-xl" onClick={() => setMobileAiOpen(false)}>
-                Close
-              </Button>
             </div>
             <Separator className="opacity-50" />
-            <div className="min-h-0 flex-1 overflow-hidden p-3">
+            <div className="min-h-0 flex-1 overflow-hidden px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2">
               <SpendlyAI transactions={transactions} savings={savings} layout="drawer" />
             </div>
           </div>

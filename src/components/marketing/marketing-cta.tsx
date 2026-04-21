@@ -19,7 +19,7 @@ export function MarketingCta({
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-pretty text-sm font-medium leading-relaxed text-[#737373]">
             Jump into the Spendly workspace to add transactions, explore analytics, and chat with Spendly AI — or create
-            an account when you want Firebase sync.
+            an account when you want cloud sync.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button

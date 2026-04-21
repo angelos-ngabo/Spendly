@@ -10,6 +10,7 @@ import {
   buildSpendlyAiAnalytics,
   getSpendlyAiAnswer,
 } from '@/lib/spendly-ai-analytics'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { cn } from '@/lib/utils'
 import type { Saving } from '@/types/saving'
 import type { Transaction } from '@/types/transaction'
@@ -27,12 +28,13 @@ export function SpendlyAI({
   savings?: Saving[]
   layout?: SpendlyAiLayout
 }) {
+  const { formatMoney } = useMoneyFormat()
   const analytics = useMemo(() => buildSpendlyAiAnalytics(transactions, savings), [transactions, savings])
   const [thread, setThread] = useState<ThreadItem[]>([])
 
   const ask = useCallback(
     (id: SpendlyAiQuestionId, label: string) => {
-      const answer = getSpendlyAiAnswer(id, analytics)
+      const answer = getSpendlyAiAnswer(id, analytics, formatMoney)
       const ts = Date.now()
       setThread((prev) => [
         ...prev,
@@ -40,7 +42,7 @@ export function SpendlyAI({
         { id: `${ts}-a`, role: 'assistant', text: answer },
       ])
     },
-    [analytics],
+    [analytics, formatMoney],
   )
 
   const clear = useCallback(() => setThread([]), [])
@@ -90,7 +92,7 @@ export function SpendlyAI({
             type="button"
             variant="secondary"
             size="sm"
-            className="h-auto max-w-full whitespace-normal rounded-full border border-border/70 bg-background/80 px-3 py-1.5 text-left text-xs font-medium leading-snug shadow-sm transition-all hover:border-primary/35 hover:bg-primary/[0.06]"
+            className="h-auto min-h-10 max-w-full whitespace-normal rounded-full border border-border/70 bg-background/80 px-3 py-2 text-left text-xs font-medium leading-snug shadow-sm transition-all hover:border-primary/35 hover:bg-primary/[0.06] sm:py-1.5"
             onClick={() => ask(s.id, s.label)}
           >
             {s.label}
@@ -134,7 +136,7 @@ export function SpendlyAI({
         className={cn(
           'min-h-0 flex-1',
           layout === 'embedded' && 'min-h-[min(360px,50vh)]',
-          layout === 'drawer' && 'min-h-[min(320px,55dvh)]',
+          layout === 'drawer' && 'min-h-[min(260px,42dvh)]',
         )}
       >
         {scrollInner}

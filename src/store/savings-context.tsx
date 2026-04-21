@@ -20,6 +20,7 @@ import {
 import type { Saving } from '@/types/saving'
 import type { Transaction } from '@/types/transaction'
 import { readGuestSessionFlag } from '@/lib/guest-storage'
+import { useMoneyFormat } from '@/context/currency-preference-context'
 import { validateSavingsReservation } from '@/utils/savings'
 import { useAuth } from '@/context/auth-context'
 import { Loader2 } from 'lucide-react'
@@ -44,11 +45,12 @@ export type SavingsContextValue = {
 const SavingsContext = createContext<SavingsContextValue | null>(null)
 
 function GuestSavingsProvider({ children }: { children: ReactNode }) {
+  const { formatMoney } = useMoneyFormat()
   const { savings, setSavings, replaceAll } = useLocalStorageSavings()
 
   const addSaving = useCallback(
     (input: NewSavingInput, transactions: Transaction[]) => {
-      const check = validateSavingsReservation(input, transactions, savings)
+      const check = validateSavingsReservation(input, transactions, savings, formatMoney)
       if (!check.ok) {
         toast.error(check.message)
         return
@@ -72,7 +74,7 @@ function GuestSavingsProvider({ children }: { children: ReactNode }) {
       setSavings((prev) => [parsed.data, ...prev])
       toast.success('Savings reserved')
     },
-    [savings, setSavings],
+    [savings, setSavings, formatMoney],
   )
 
   const deleteSaving = useCallback(
@@ -103,6 +105,7 @@ function GuestSavingsProvider({ children }: { children: ReactNode }) {
 }
 
 function CloudSavingsProvider({ uid, children }: { uid: string; children: ReactNode }) {
+  const { formatMoney } = useMoneyFormat()
   const [savings, setSavings] = useState<Saving[]>([])
   const [savingsLoading, setSavingsLoading] = useState(true)
   const [savingsError, setSavingsError] = useState<string | null>(null)
@@ -148,7 +151,7 @@ function CloudSavingsProvider({ uid, children }: { uid: string; children: ReactN
   const addSaving = useCallback(
     (input: NewSavingInput, transactions: Transaction[]) => {
       void (async () => {
-        const check = validateSavingsReservation(input, transactions, savings)
+        const check = validateSavingsReservation(input, transactions, savings, formatMoney)
         if (!check.ok) {
           toast.error(check.message)
           return
@@ -177,7 +180,7 @@ function CloudSavingsProvider({ uid, children }: { uid: string; children: ReactN
         }
       })()
     },
-    [savings, uid],
+    [savings, uid, formatMoney],
   )
 
   const deleteSaving = useCallback(

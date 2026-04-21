@@ -2,6 +2,8 @@
  * Auth form primitives (spec names map to existing implementations — logic unchanged).
  */
 export { AuthLayout } from '@/components/auth/auth-layout'
+export { AuthLeftPanel } from '@/components/auth/auth-left-panel'
+export { AuthSupportingHighlights } from '@/components/auth/auth-supporting-highlights'
 export { AuthCard } from '@/components/auth/auth-card'
 export { AuthTextField as InputField } from '@/components/auth/auth-textfield'
 export { AuthPasswordField as PasswordField } from '@/components/auth/auth-password-field'

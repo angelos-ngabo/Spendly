@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { CategoryBadge } from '@/components/shared/category-badge'
-import { formatCurrency, formatDisplayDate } from '@/lib/format'
+import { useMoneyFormat } from '@/context/currency-preference-context'
+import { formatDisplayDate } from '@/lib/format'
 import type { Transaction } from '@/types/transaction'
 import { cn } from '@/lib/utils'
 
@@ -21,6 +22,7 @@ export function RecentTransactions({
   onAdd?: () => void
   appearance?: 'default' | 'datapharma'
 }) {
+  const { formatMoney } = useMoneyFormat()
   const pharma = appearance === 'datapharma'
 
   return (
@@ -58,7 +60,7 @@ export function RecentTransactions({
               type="button"
               onClick={() => onEdit(t)}
               className={cn(
-                'flex w-full items-center justify-between gap-3 rounded-xl border px-3 py-3 text-left shadow-sm transition-all duration-200',
+                'flex w-full min-w-0 items-center justify-between gap-3 rounded-xl border px-3 py-3.5 text-left shadow-sm transition-all duration-200 sm:py-3',
                 pharma
                   ? 'border-[#EEF2F5] bg-[#FAFBFC] hover:border-[#E2E8F0] hover:bg-[#F4F8F8] hover:shadow-sm dark:border-border/60 dark:bg-muted/30 dark:hover:bg-muted/50'
                   : 'border-border/50 bg-background/50 hover:border-border hover:bg-muted/50 hover:shadow-md',
@@ -81,7 +83,7 @@ export function RecentTransactions({
                 )}
               >
                 {t.type === 'income' ? '+' : '-'}
-                {formatCurrency(t.amount)}
+                {formatMoney(t.amount)}
               </div>
             </button>
           ))

@@ -98,9 +98,9 @@ export function DashboardPage() {
         </div>
       ) : null}
 
-      <div className="overflow-hidden rounded-[18px] border border-[#E2E8F0] bg-white shadow-[0_8px_32px_rgba(49,138,150,0.1)] dark:rounded-2xl dark:border-border dark:bg-card dark:shadow-xl">
-        <div className="border-b border-[#EEF2F5] bg-gradient-to-r from-[#318A96]/[0.07] via-[#F8F9FA] to-white px-5 py-6 md:px-8 md:py-7 dark:from-primary/10 dark:via-card dark:to-card">
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-[0_8px_32px_rgba(49,138,150,0.1)] sm:rounded-[18px] dark:border-border dark:bg-card dark:shadow-xl">
+        <div className="border-b border-[#EEF2F5] bg-gradient-to-r from-[#318A96]/[0.07] via-[#F8F9FA] to-white px-4 py-5 sm:px-5 sm:py-6 md:px-8 md:py-7 dark:from-primary/10 dark:via-card dark:to-card">
+          <div className="flex flex-col gap-4 sm:gap-5 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl space-y-2">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#318A96] dark:text-primary">
                 {guestSession
@@ -122,7 +122,7 @@ export function DashboardPage() {
             </div>
             <Button
               type="button"
-              className="h-11 shrink-0 rounded-xl bg-[#318A96] px-5 text-sm font-semibold text-white shadow-md transition hover:bg-[#287783] dark:bg-primary dark:hover:bg-primary/90"
+              className="h-12 w-full shrink-0 rounded-xl bg-[#318A96] px-5 text-sm font-semibold text-white shadow-md transition hover:bg-[#287783] sm:h-11 sm:w-auto dark:bg-primary dark:hover:bg-primary/90"
               onClick={openCreate}
             >
               <Plus className="h-4 w-4" />
@@ -131,7 +131,7 @@ export function DashboardPage() {
           </div>
         </div>
 
-        <div className="space-y-8 bg-[#F8F9FA] px-5 py-6 md:space-y-10 md:px-8 md:py-8 dark:bg-background/40">
+        <div className="space-y-6 bg-[#F8F9FA] px-4 py-6 sm:space-y-8 sm:px-5 md:space-y-10 md:px-8 md:py-8 dark:bg-background/40">
           {!dismissed && transactions.length === 0 ? (
             <Card className="overflow-hidden border-[#318A96]/25 bg-gradient-to-br from-[#318A96]/[0.09] via-white to-white shadow-sm dark:border-primary/25 dark:from-primary/10 dark:via-card dark:to-card">
               <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
@@ -149,7 +149,7 @@ export function DashboardPage() {
                     ) : (
                       <>
                         Start by adding your first transaction. Your ledger is private to this account and syncs with
-                        Firebase—sample bulk data is not loaded automatically.
+                        Cloud sync—sample bulk data is not loaded automatically.
                       </>
                     )}
                   </div>
@@ -172,7 +172,7 @@ export function DashboardPage() {
             </Card>
           ) : null}
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4 xl:gap-5">
             <StatCard
               title="Total income"
               amount={summary.totalIncome}

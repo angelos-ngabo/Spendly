@@ -1,4 +1,3 @@
-import { Play } from 'lucide-react'
 import { landingAssets } from '@/components/marketing/assets'
 
 export function MarketingVisualDemo() {
@@ -16,27 +15,19 @@ export function MarketingVisualDemo() {
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center">
-          <div className="relative overflow-hidden rounded-sm border border-[#DEDEDE] bg-white shadow-md">
+          <figure className="relative overflow-hidden rounded-sm border border-[#DEDEDE] bg-white shadow-md">
             <div className="relative aspect-[370/250] w-full bg-[#F7F7F7]">
               <img
                 src={landingAssets.visualDemo}
-                alt="Spendly workspace preview — charts and cards"
+                alt="Spendly workspace preview — charts and cards (static image)"
                 width={740}
                 height={500}
                 className="h-full w-full object-cover"
                 loading="lazy"
                 decoding="async"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-              <button
-                type="button"
-                className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#23A6F0] text-white shadow-lg shadow-black/30 transition hover:scale-105"
-                aria-label="Play product tour (decorative)"
-              >
-                <Play className="ml-0.5 h-7 w-7" fill="currentColor" />
-              </button>
             </div>
-          </div>
+          </figure>
 
           <div className="space-y-6">
             <h3 className="text-lg font-bold text-[#252B42]">Most trusted structure, rebuilt for individuals</h3>

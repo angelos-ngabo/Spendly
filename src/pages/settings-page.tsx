@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { SettingsCurrencySection } from '@/components/settings/settings-currency-section'
 import { useAuth } from '@/context/auth-context'
 import { buildDemoTransactions } from '@/data/demo'
 import { backupToJson, buildBackup, downloadTextFile, transactionsToCsv } from '@/utils/export'
@@ -146,7 +147,7 @@ export function SettingsPage() {
           <CardTitle>Account</CardTitle>
           <CardDescription>
             {user
-              ? 'You are signed in with Firebase. Transactions sync to your private Firestore collection.'
+              ? 'You are signed in. Transactions sync to your private cloud collection.'
               : guestSession
                 ? 'Guest mode keeps data in this browser only until you create an account.'
                 : 'Session information'}
@@ -179,6 +180,8 @@ export function SettingsPage() {
           </Button>
         </CardContent>
       </Card>
+
+      <SettingsCurrencySection />
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
@@ -266,7 +269,7 @@ export function SettingsPage() {
               <div className="text-sm font-medium">Reset all transactions</div>
               <div className="text-sm text-muted-foreground">
                 {user
-                  ? 'Deletes every transaction document in your Firestore ledger for this account.'
+                  ? 'Deletes every transaction document in your cloud ledger for this account.'
                   : 'Removes guest transactions stored in this browser.'}{' '}
                 Export first if you need a copy.
               </div>
@@ -282,7 +285,7 @@ export function SettingsPage() {
                   <AlertDialogTitle>Reset all transactions?</AlertDialogTitle>
                   <AlertDialogDescription>
                     {user
-                      ? 'This permanently deletes your transactions from Firestore for this user.'
+                      ? 'This permanently deletes your transactions from the cloud for this user.'
                       : 'This permanently clears guest transactions stored locally.'}{' '}
                     This cannot be undone.
                   </AlertDialogDescription>
