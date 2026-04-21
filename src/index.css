@@ -101,9 +101,25 @@
   }
 }
 
+@keyframes spendly-nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer utilities {
   .spendly-animate-enter {
     animation: spendly-enter 0.55s ease-out forwards;
+  }
+
+  /** iOS: momentum scrolling inside nested overflow regions (AI drawer, etc.) */
+  .touch-scroll-y {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -113,9 +129,16 @@
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   body {
-    @apply min-h-svh bg-background font-sans text-foreground antialiased;
+    @apply min-h-dvh bg-background font-sans text-foreground antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    overflow-x: clip;
+  }
+  #root {
+    min-height: 100%;
   }
 }

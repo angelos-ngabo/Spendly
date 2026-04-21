@@ -35,7 +35,7 @@ export function AppShell() {
         <div className="mx-auto flex w-full max-w-[min(1880px,calc(100vw-0.5rem))]">
           <AppSidebar />
 
-          <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col">
             <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/50 bg-background/80 px-3 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 md:hidden">
               <div className="flex min-w-0 items-center gap-2">
                 <Button
@@ -109,7 +109,7 @@ export function AppShell() {
             onClick={() => setMobileAiOpen(false)}
           />
           <div
-            className="absolute inset-x-0 bottom-0 flex max-h-[min(92dvh,720px)] flex-col rounded-t-3xl border border-border/60 border-b-0 bg-background shadow-[0_-12px_48px_rgba(0,0,0,0.18)]"
+            className="absolute inset-x-0 bottom-0 flex max-h-[min(92dvh,720px)] min-h-0 flex-col overflow-hidden rounded-t-3xl border border-border/60 border-b-0 bg-background shadow-[0_-12px_48px_rgba(0,0,0,0.18)]"
             role="dialog"
             aria-modal="true"
             aria-labelledby="spendly-ai-mobile-title"
@@ -135,7 +135,7 @@ export function AppShell() {
               </div>
             </div>
             <Separator className="opacity-50" />
-            <div className="min-h-0 flex-1 overflow-hidden px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2">
+            <div className="touch-scroll-y min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2">
               <SpendlyAI transactions={transactions} savings={savings} layout="drawer" />
             </div>
           </div>

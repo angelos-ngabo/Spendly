@@ -1,4 +1,4 @@
-import { LogOut, Moon, Sparkles, Sun, Wallet2 } from 'lucide-react'
+import { Check, LogOut, Monitor, Moon, MoreVertical, Sparkles, Sun, Wallet2 } from 'lucide-react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { APP_BASE, LANDING_PATH, NAV_ITEMS } from '@/components/layout/nav'
 import { Button } from '@/components/ui/button'
@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/context/auth-context'
-import { writeUserColorMode } from '@/services/firebase/user-profile'
+import { writeUserColorMode, type ColorModePreference } from '@/services/firebase/user-profile'
 import { getInitials } from '@/lib/initials'
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
@@ -169,22 +169,62 @@ export function MobileWorkspaceActions({
   onOpenAi: () => void
   showAiButton?: boolean
 }) {
+  const { setTheme, theme } = useTheme()
+  const { user, firebaseEnabled } = useAuth()
+
+  const setAppearance = (mode: ColorModePreference) => {
+    setTheme(mode)
+    if (firebaseEnabled && user?.uid) void writeUserColorMode(user.uid, mode)
+  }
+
   return (
     <div className="flex shrink-0 items-center gap-1.5">
-      {showAiButton ? (
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          className="h-9 w-9 rounded-xl border-primary/25 bg-primary/[0.06] text-primary shadow-sm transition-all hover:bg-primary/10"
-          aria-label="Open Spendly AI"
-          onClick={onOpenAi}
-        >
-          <Sparkles className="h-4 w-4" strokeWidth={1.75} />
-        </Button>
-      ) : null}
       <UserMenu collapsed />
-      <ThemeToggle />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="h-9 w-9 shrink-0 rounded-xl border-border/50 bg-background/80 shadow-sm transition-all hover:shadow-md"
+            aria-label="More workspace options"
+          >
+            <MoreVertical className="h-4 w-4" strokeWidth={1.75} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-52">
+          {showAiButton ? (
+            <DropdownMenuItem
+              onSelect={() => {
+                onOpenAi()
+              }}
+              className="gap-2"
+            >
+              <Sparkles className="h-4 w-4 text-primary" strokeWidth={1.75} />
+              Spendly AI
+            </DropdownMenuItem>
+          ) : null}
+          {showAiButton ? <DropdownMenuSeparator /> : null}
+          <DropdownMenuLabel className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Appearance
+          </DropdownMenuLabel>
+          <DropdownMenuItem onSelect={() => setAppearance('light')} className="gap-2">
+            <Sun className="h-4 w-4" />
+            Light
+            {theme === 'light' ? <Check className="ml-auto h-4 w-4 opacity-70" /> : null}
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setAppearance('dark')} className="gap-2">
+            <Moon className="h-4 w-4" />
+            Dark
+            {theme === 'dark' ? <Check className="ml-auto h-4 w-4 opacity-70" /> : null}
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setAppearance('system')} className="gap-2">
+            <Monitor className="h-4 w-4" />
+            System
+            {theme === 'system' ? <Check className="ml-auto h-4 w-4 opacity-70" /> : null}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

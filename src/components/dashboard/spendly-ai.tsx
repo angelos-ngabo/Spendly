@@ -2,7 +2,6 @@ import { Bot, Sparkles } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import {
   type SpendlyAiQuestionId,
@@ -132,15 +131,15 @@ export function SpendlyAI({
 
   const content = (
     <CardContent className="flex min-h-0 flex-1 flex-col overflow-hidden p-0">
-      <ScrollArea
+      <div
         className={cn(
-          'min-h-0 flex-1',
+          'touch-scroll-y min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain',
           layout === 'embedded' && 'min-h-[min(360px,50vh)]',
-          layout === 'drawer' && 'min-h-[min(260px,42dvh)]',
+          layout === 'drawer' && 'min-h-0',
         )}
       >
         {scrollInner}
-      </ScrollArea>
+      </div>
     </CardContent>
   )
 

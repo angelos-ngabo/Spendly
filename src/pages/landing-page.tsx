@@ -24,7 +24,7 @@ export function LandingPage() {
   }
 
   return (
-    <div className="min-h-svh bg-[#FAFAFA] text-[#252B42]">
+    <div className="min-h-dvh w-full overflow-x-clip bg-[#FAFAFA] text-[#252B42]">
       <MarketingHero firebaseEnabled={firebaseEnabled} onOpenApp={goToWorkspace} onGuestStart={goToWorkspace} />
       <MarketingFeatures />
       <MarketingDeviceCompatibility />
