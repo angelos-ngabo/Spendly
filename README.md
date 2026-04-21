@@ -144,7 +144,7 @@ git init
 git add .
 git commit -m "feat: Spendly expense tracker with Firebase"
 git branch -M main
-git remote add origin https://github.com/<your-username>/spendly.git
+git remote add origin https://github.com/angelos-ngabo/Spendly.git
 git push -u origin main
 ```
 
