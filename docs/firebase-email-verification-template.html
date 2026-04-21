@@ -1,0 +1,80 @@
+<!--
+  FIREBASE CONSOLE SETUP (Authentication → Templates → Email address verification)
+
+  1. Authorized domains: add your production domain and localhost (dev).
+  2. Action URL / continue URL: the app passes https://YOUR_DOMAIN/verify-email via sendEmailVerification(actionCodeSettings).
+  3. Sender name: set to "Spendly Team" in Project settings / Templates where available.
+  4. Subject line (recommended): Verify your Spendly account
+  5. Paste the HTML below into the email body (HTML mode). Firebase replaces %LINK% with the real verification URL.
+  6. Plain text: duplicate the short text below in the "Plain text" alternate field in the console if available.
+
+  Deliverability: keep subject sentence case, avoid ALL CAPS and excessive punctuation. Custom domain (e.g. no-reply@spendly.app) is configured in Firebase / Google Cloud later, not in this file.
+-->
+
+<!-- Subject (set in console, not in this file): Verify your Spendly account -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Verify your Spendly account</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f4f4f5;padding:24px 12px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;border:1px solid #e5e5e5;overflow:hidden;">
+            <tr>
+              <td style="padding:28px 28px 8px 28px;text-align:center;">
+                <div style="display:inline-block;padding:10px 14px;border-radius:10px;background-color:#23a6f0;color:#ffffff;font-size:18px;font-weight:bold;">
+                  Spendly
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 28px 4px 28px;text-align:center;">
+                <h1 style="margin:0;font-size:20px;line-height:1.35;color:#252b42;">Welcome to Spendly</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 28px 20px 28px;text-align:center;">
+                <p style="margin:0;font-size:15px;line-height:1.55;color:#5c5d62;">
+                  Please verify your email to activate your account and start tracking your finances.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px 28px;text-align:center;">
+                <a
+                  href="%LINK%"
+                  style="display:inline-block;padding:14px 28px;background-color:#23a6f0;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:8px;"
+                >
+                  Verify email
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px 28px;">
+                <p style="margin:0;font-size:12px;line-height:1.5;color:#737373;">
+                  If the button does not work, copy and paste this link into your browser:
+                </p>
+                <p style="margin:8px 0 0 0;font-size:12px;line-height:1.45;word-break:break-all;color:#23a6f0;">
+                  %LINK%
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px 28px;border-top:1px solid #eaeaea;">
+                <p style="margin:20px 0 0 0;font-size:12px;line-height:1.5;color:#9ca3af;">
+                  If you did not create this account, you can safely ignore this email.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:16px 0 0 0;font-size:11px;color:#9ca3af;">Spendly Team</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

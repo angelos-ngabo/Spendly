@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans:
+    'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --radius-lg: 0.875rem;
+  --radius-md: 0.625rem;
+  --radius-sm: 0.375rem;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+:root {
+  /* Financen (Figma): Jet #2A2B2E, primary #23A6F0, surfaces #FAFAFA / #FFFFFF, secondary #F3CD03, borders #DEDEDE */
+  --background: #fafafa;
+  --foreground: #2a2b2e;
+  --card: #ffffff;
+  --card-foreground: #2a2b2e;
+  --popover: #ffffff;
+  --popover-foreground: #2a2b2e;
+  --primary: #23a6f0;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #2a2b2e;
+  --muted: #f0f1f3;
+  --muted-foreground: #5c5d62;
+  --accent: #e8f6fd;
+  --accent-foreground: #0b5a8a;
+  --destructive: oklch(0.56 0.2 25);
+  --destructive-foreground: #ffffff;
+  --border: #dedede;
+  --input: #dedede;
+  --ring: #23a6f0;
+  --chart-1: #23a6f0;
+  --chart-2: #1a8fd4;
+  --chart-3: #f3cd03;
+  --chart-4: #5c5d62;
+  --chart-5: #0b5a8a;
+}
+
+.dark {
+  --background: #1c1d20;
+  --foreground: #fafafa;
+  --card: #242528;
+  --card-foreground: #fafafa;
+  --popover: #242528;
+  --popover-foreground: #fafafa;
+  --primary: #4db8f5;
+  --primary-foreground: #0a1620;
+  --secondary: #2a2b2e;
+  --secondary-foreground: #fafafa;
+  --muted: #2f3034;
+  --muted-foreground: #a1a2a8;
+  --accent: #1a3d52;
+  --accent-foreground: #b8e6ff;
+  --destructive: oklch(0.54 0.18 25);
+  --destructive-foreground: #fafafa;
+  --border: #3a3b40;
+  --input: #3a3b40;
+  --ring: #4db8f5;
+  --chart-1: #4db8f5;
+  --chart-2: #23a6f0;
+  --chart-3: #f3cd03;
+  --chart-4: #a1a2a8;
+  --chart-5: #7dd3fc;
+}
+
+@keyframes spendly-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .spendly-animate-enter {
+    animation: spendly-enter 0.55s ease-out forwards;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply min-h-svh bg-background font-sans text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
