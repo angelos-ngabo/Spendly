@@ -1,5 +1,5 @@
 import type { ActionCodeSettings } from 'firebase/auth'
-import { VERIFY_EMAIL_PATH } from '@/components/layout/nav'
+import { RESET_PASSWORD_PATH, VERIFY_EMAIL_PATH } from '@/components/layout/nav'
 
 /**
  * Canonical site origin for Firebase `continueUrl` (email verification, etc.).
@@ -39,6 +39,26 @@ export function buildEmailVerificationActionCodeSettings(): ActionCodeSettings {
   if (!url || !/^https?:\/\//i.test(url)) {
     throw new Error(
       'Email verification link could not be built. Set VITE_PUBLIC_APP_ORIGIN to your deployed origin (e.g. https://spendly-two-ochre.vercel.app) and add that hostname to Firebase → Authentication → Authorized domains.',
+    )
+  }
+
+  return {
+    url,
+    handleCodeInApp: false,
+  }
+}
+
+/**
+ * `sendPasswordResetEmail`: `url` is the continue / handler URL (must be HTTPS in production, hostname authorized in Firebase).
+ * Production: set `VITE_PUBLIC_APP_ORIGIN=https://spendly-two-ochre.vercel.app` so this resolves to that origin + `/reset-password`.
+ */
+export function buildPasswordResetActionCodeSettings(): ActionCodeSettings {
+  const origin = appOrigin()
+  const url = origin ? `${origin}${RESET_PASSWORD_PATH}` : ''
+
+  if (!url || !/^https?:\/\//i.test(url)) {
+    throw new Error(
+      'Password reset link could not be built. Set VITE_PUBLIC_APP_ORIGIN to your deployed origin (e.g. https://spendly-two-ochre.vercel.app), add that hostname under Firebase → Authentication → Authorized domains, and set the password reset email template action URL if required by your project.',
     )
   }
 

@@ -12,6 +12,12 @@ export const SIGN_IN_PATH = '/sign-in' as const
 /** Firebase email verification continue URL (must be an authorized domain in Firebase console). */
 export const VERIFY_EMAIL_PATH = '/verify-email' as const
 
+/** Password reset request (linked from sign-in). */
+export const FORGOT_PASSWORD_PATH = '/forgot-password' as const
+
+/** Firebase password reset handler: email link should land here with `oobCode` (and usually `mode=resetPassword`). */
+export const RESET_PASSWORD_PATH = '/reset-password' as const
+
 export const APP_BASE = '/app' as const
 
 export const NAV_ITEMS = [

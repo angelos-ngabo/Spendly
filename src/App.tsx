@@ -11,6 +11,8 @@ import { DashboardPage } from '@/pages/dashboard-page'
 import { LandingPage } from '@/pages/landing-page'
 import { SavingsPage } from '@/pages/savings-page'
 import { SettingsPage } from '@/pages/settings-page'
+import { ForgotPasswordPage } from '@/pages/forgot-password-page'
+import { ResetPasswordPage } from '@/pages/reset-password-page'
 import { SignInPage } from '@/pages/sign-in-page'
 import { SignUpPage } from '@/pages/sign-up-page'
 import { VerifyEmailPage } from '@/pages/verify-email-page'
@@ -26,6 +28,8 @@ export default function App() {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/login" element={<SignInPage />} />
             <Route path="/signin" element={<SignInPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/register" element={<SignUpPage />} />
             <Route path="/signup" element={<SignUpPage />} />

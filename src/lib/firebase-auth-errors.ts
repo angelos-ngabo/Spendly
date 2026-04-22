@@ -21,9 +21,9 @@ export function mapFirebaseAuthError(e: unknown): string {
     case 'auth/user-disabled':
       return 'This account has been disabled. Contact support if you need help.'
     case 'auth/invalid-action-code':
-      return 'This verification link is invalid or has already been used.'
+      return 'This link is invalid or has already been used.'
     case 'auth/expired-action-code':
-      return 'This verification link has expired. Request a new one from the sign-in page.'
+      return 'This link has expired. Request a new one and try again.'
     case 'auth/unauthorized-continue-uri':
       return 'This app URL is not allowed for sign-in links. Add your site domain under Firebase → Authentication → Settings → Authorized domains, and set VITE_PUBLIC_APP_ORIGIN on Vercel to match.'
     default:

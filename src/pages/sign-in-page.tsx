@@ -4,7 +4,7 @@ import { useCallback, useLayoutEffect, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { APP_BASE, SIGN_UP_PATH } from '@/components/layout/nav'
+import { APP_BASE, FORGOT_PASSWORD_PATH, SIGN_UP_PATH } from '@/components/layout/nav'
 import { BackToHomeLink } from '@/components/auth/back-to-home-link'
 import { AuthCard } from '@/components/auth/auth-card'
 import { EmailVerificationPending } from '@/components/auth/email-verification-pending'
@@ -25,6 +25,7 @@ export type SignInLocationState = {
   email?: string
   verificationEmailFailed?: boolean
   emailVerifiedFromLink?: boolean
+  passwordResetSuccess?: boolean
 }
 
 export function SignInPage() {
@@ -48,6 +49,8 @@ export function SignInPage() {
   } | null>(null)
   const [verifiedBanner, setVerifiedBanner] = useState(false)
   const dismissVerifiedBanner = useCallback(() => setVerifiedBanner(false), [])
+  const [passwordResetBanner, setPasswordResetBanner] = useState(false)
+  const dismissPasswordResetBanner = useCallback(() => setPasswordResetBanner(false), [])
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema) as Resolver<SignInValues>,
@@ -59,7 +62,12 @@ export function SignInPage() {
     if (!s) return
 
     let changed = false
-    const next: SignInLocationState = { ...s, signupWelcome: false, emailVerifiedFromLink: false }
+    const next: SignInLocationState = {
+      ...s,
+      signupWelcome: false,
+      emailVerifiedFromLink: false,
+      passwordResetSuccess: false,
+    }
 
     if (s.signupWelcome && s.email) {
       setSignupBanner({
@@ -71,6 +79,10 @@ export function SignInPage() {
     }
     if (s.emailVerifiedFromLink) {
       setVerifiedBanner(true)
+      changed = true
+    }
+    if (s.passwordResetSuccess) {
+      setPasswordResetBanner(true)
       changed = true
     }
 
@@ -114,6 +126,17 @@ export function SignInPage() {
               dismissible
               autoHideMs={7000}
               onDismiss={dismissVerifiedBanner}
+            />
+          </div>
+        ) : null}
+        {firebaseEnabled && passwordResetBanner && !user ? (
+          <div className="mb-6 shrink-0">
+            <AlertBanner
+              variant="success"
+              message="Your password has been reset successfully. You can now sign in."
+              dismissible
+              autoHideMs={9000}
+              onDismiss={dismissPasswordResetBanner}
             />
           </div>
         ) : null}
@@ -192,11 +215,12 @@ export function SignInPage() {
                 registration={form.register('password')}
                 forgotSlot={
                   <Button
+                    asChild
                     type="button"
                     variant="link"
                     className="h-auto p-0 text-sm font-semibold text-primary no-underline hover:underline"
                   >
-                    Forgot password?
+                    <Link to={FORGOT_PASSWORD_PATH}>Forgot password?</Link>
                   </Button>
                 }
               />
