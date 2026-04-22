@@ -51,6 +51,10 @@ export function buildEmailVerificationActionCodeSettings(): ActionCodeSettings {
 /**
  * `sendPasswordResetEmail`: `url` is the continue / handler URL (must be HTTPS in production, hostname authorized in Firebase).
  * Production: set `VITE_PUBLIC_APP_ORIGIN=https://spendly-two-ochre.vercel.app` so this resolves to that origin + `/reset-password`.
+ *
+ * **Important:** In Firebase Console → Authentication → Templates → Password reset, set the email **action URL**
+ * to that same full reset URL (e.g. `https://…/reset-password`). Otherwise users may see Firebase’s hosted reset
+ * page first instead of this app.
  */
 export function buildPasswordResetActionCodeSettings(): ActionCodeSettings {
   const origin = appOrigin()

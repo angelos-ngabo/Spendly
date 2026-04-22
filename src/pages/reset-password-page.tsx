@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Check, Info, KeyRound, Loader2 } from 'lucide-react'
+import { Check, KeyRound, Loader2 } from 'lucide-react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -263,33 +263,6 @@ export function ResetPasswordPage() {
           </div>
         ) : null}
 
-        {linkStatus === 'none' ? (
-          <div
-            className={cn(
-              hintBannerClass,
-              'mt-5 flex gap-3 border-border/80 bg-muted/30 text-muted-foreground',
-            )}
-          >
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden />
-            <div className="space-y-2">
-              <p className="font-medium text-foreground">Open this page from your email</p>
-              <p>
-                The reset link from Spendly should open this screen with a security code in the address. If you landed
-                here without that code, use the buttons below—your password fields are still here for when you return
-                with a fresh link.
-              </p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                <Button type="button" size="sm" className="rounded-lg font-semibold" asChild>
-                  <Link to={FORGOT_PASSWORD_PATH}>Request new reset email</Link>
-                </Button>
-                <Button type="button" size="sm" variant="outline" className="rounded-lg font-semibold" asChild>
-                  <Link to={SIGN_IN_PATH}>Back to Sign In</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        ) : null}
-
         {linkStatus === 'invalid' && verifyError ? (
           <div
             className={cn(
@@ -353,6 +326,11 @@ export function ResetPasswordPage() {
             <p className="text-center text-sm font-semibold text-primary">
               <Link className="hover:underline" to={SIGN_IN_PATH}>
                 Back to Sign In
+              </Link>
+            </p>
+            <p className="text-center text-xs text-muted-foreground">
+              <Link className="font-medium text-primary underline-offset-2 hover:underline" to={FORGOT_PASSWORD_PATH}>
+                Request a new reset email
               </Link>
             </p>
           </div>
