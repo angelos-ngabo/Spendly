@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AlertCircle, Check, KeyRound, Loader2 } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { FORGOT_PASSWORD_PATH, SIGN_IN_PATH } from '@/components/layout/nav'
 import { AuthCard } from '@/components/auth/auth-card'
@@ -16,6 +16,7 @@ import { SuccessStatePanel } from '@/components/shared/success-state-panel'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/context/auth-context'
 import { mapFirebaseAuthError } from '@/lib/firebase-auth-errors'
+import { isWrongModeForPasswordReset, parseFirebaseOutOfBandParams } from '@/lib/parse-firebase-out-of-band-params'
 import { resetPasswordFormSchema, type ResetPasswordFormValues } from '@/lib/password-reset-schema'
 import {
   confirmSpendlyPasswordReset,
@@ -34,16 +35,32 @@ type Phase =
 
 export function ResetPasswordPage() {
   const { firebaseEnabled } = useAuth()
-  const [searchParams] = useSearchParams()
+  const location = useLocation()
   const navigate = useNavigate()
-  const oobCode = searchParams.get('oobCode') ?? ''
-  const mode = searchParams.get('mode')
+  const { oobCode, mode } = useMemo(
+    () => parseFirebaseOutOfBandParams(location.search, location.hash),
+    [location.search, location.hash],
+  )
 
   const [phase, setPhase] = useState<Phase>(() => {
-    if (!oobCode) return 'no-code'
-    if (mode && mode !== 'resetPassword') return 'wrong-mode'
+    if (typeof window === 'undefined') return 'no-code'
+    const initial = parseFirebaseOutOfBandParams(window.location.search, window.location.hash)
+    if (!initial.oobCode) return 'no-code'
+    if (isWrongModeForPasswordReset(initial.mode)) return 'wrong-mode'
     return 'loading-code'
   })
+
+  /** Firebase sometimes delivers `oobCode` in the hash; normalize to query so refresh and routing stay consistent. */
+  useLayoutEffect(() => {
+    if (!oobCode) return
+    const inSearch = new URLSearchParams(location.search).has('oobCode')
+    if (inSearch) return
+    if (!location.hash) return
+    const qs = new URLSearchParams()
+    qs.set('oobCode', oobCode)
+    qs.set('mode', mode ?? 'resetPassword')
+    navigate({ pathname: location.pathname, search: `?${qs.toString()}`, hash: '' }, { replace: true })
+  }, [oobCode, mode, location.hash, location.pathname, location.search, navigate])
   const [accountEmail, setAccountEmail] = useState<string | null>(null)
   const [codeError, setCodeError] = useState<string | null>(null)
   const [formError, setFormError] = useState<string | null>(null)
@@ -75,7 +92,7 @@ export function ResetPasswordPage() {
       return
     }
 
-    if (mode && mode !== 'resetPassword') {
+    if (isWrongModeForPasswordReset(mode)) {
       setPhase('wrong-mode')
       setCodeError('This link is not for password reset.')
       return
@@ -118,7 +135,7 @@ export function ResetPasswordPage() {
   }, [phase, goSignInSuccess, clearRedirectTimer])
 
   const onSubmit = form.handleSubmit(async (values) => {
-    const code = searchParams.get('oobCode') ?? ''
+    const code = oobCode.trim()
     if (!code) {
       setFormError('Reset link is missing. Request a new email from the sign-in page.')
       setPhase('no-code')

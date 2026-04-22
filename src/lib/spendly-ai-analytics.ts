@@ -14,6 +14,7 @@ import {
 } from '@/utils/transactions'
 
 export type SpendlyAiQuestionId =
+  | 'how-it-works'
   | 'how-much-left'
   | 'save-this-month'
   | 'top-spending'
@@ -32,6 +33,7 @@ export type SpendlyAiQuestionId =
   | 'ai-ledger-saved-pct'
 
 export const SPENDLY_AI_SUGGESTIONS: { id: SpendlyAiQuestionId; label: string }[] = [
+  { id: 'how-it-works', label: 'How does Spendly AI work?' },
   { id: 'how-much-left', label: 'How much do I have left?' },
   { id: 'save-this-month', label: 'How much did I save this month?' },
   { id: 'top-spending', label: 'What am I spending the most on?' },
@@ -217,6 +219,15 @@ export function getSpendlyAiAnswer(
 ): string {
   const fc = formatMoney
   const { summary, month, prevMonthLabel } = a
+
+  if (id === 'how-it-works') {
+    return [
+      'Spendly AI answers from the income, expense, and savings data already in your workspace—nothing is sent to an external chat model or third-party API.',
+      'Tap a suggested question (or think of it as a shortcut): each one runs a focused calculation on your ledger—balances, categories, this month vs last, savings room, and similar—and returns plain-language text you can read here.',
+      'Guest sessions keep everything in your browser; signed-in users get the same on-device logic with optional cloud sync for your data, not for sending prompts out.',
+      'Insights are meant as a quick, practical read on your own numbers—not tax, legal, or investment advice. Add more categorized transactions and savings entries to make the answers richer.',
+    ].join('\n\n')
+  }
 
   const hasActivity = summary.count > 0 || a.totalReservedSavings > 0
   if (!hasActivity) {
