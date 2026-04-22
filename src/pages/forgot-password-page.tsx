@@ -14,6 +14,7 @@ import { BackToHomeLink } from '@/components/auth/back-to-home-link'
 import { FirebaseSetupHelp } from '@/components/shared/firebase-setup-help'
 import { useAuth } from '@/context/auth-context'
 import { mapFirebaseAuthError } from '@/lib/firebase-auth-errors'
+import { isCustomAuthEmailEnabled, sendCustomPasswordResetRequest } from '@/lib/custom-auth-email'
 import { forgotPasswordSchema, type ForgotPasswordValues } from '@/lib/password-reset-schema'
 import { isForgotPasswordEnumerationSafeSuccess, sendSpendlyPasswordResetEmail } from '@/services/firebase/password-reset'
 
@@ -32,16 +33,20 @@ export function ForgotPasswordPage() {
     setFormError(null)
     setSubmitting(true)
     try {
-      await sendSpendlyPasswordResetEmail(values.email)
+      if (isCustomAuthEmailEnabled()) {
+        await sendCustomPasswordResetRequest(values.email)
+      } else {
+        await sendSpendlyPasswordResetEmail(values.email)
+      }
       setSent(true)
       toast.success('If an account exists for that email, a reset link is on the way.')
     } catch (e) {
-      if (isForgotPasswordEnumerationSafeSuccess(e)) {
+      if (!isCustomAuthEmailEnabled() && isForgotPasswordEnumerationSafeSuccess(e)) {
         setSent(true)
         toast.success('If an account exists for that email, a reset link is on the way.')
         return
       }
-      const message = mapFirebaseAuthError(e)
+      const message = e instanceof Error ? e.message : mapFirebaseAuthError(e)
       setFormError(message)
       toast.error(message)
     } finally {

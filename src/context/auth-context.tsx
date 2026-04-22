@@ -9,6 +9,7 @@ import {
   updateProfile,
   type User,
 } from 'firebase/auth'
+import { isCustomAuthEmailEnabled, sendCustomEmailVerificationRequest } from '@/lib/custom-auth-email'
 import { buildEmailVerificationActionCodeSettings } from '@/lib/firebase-email-action-settings'
 import {
   createContext,
@@ -190,10 +191,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         let verificationEmailSent = true
         try {
-          await sendEmailVerification(cred.user, buildEmailVerificationActionCodeSettings())
+          if (isCustomAuthEmailEnabled()) {
+            const token = await cred.user.getIdToken()
+            await sendCustomEmailVerificationRequest(token)
+          } else {
+            await sendEmailVerification(cred.user, buildEmailVerificationActionCodeSettings())
+          }
         } catch (e) {
           verificationEmailSent = false
-          toast.error(mapFirebaseAuthError(e))
+          toast.error(e instanceof Error ? e.message : mapFirebaseAuthError(e))
         }
         setGuestSessionFlag(false)
         setGuestSession(false)
@@ -216,7 +222,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error('You must be signed in to resend the verification email.')
     }
     await reload(u)
-    await sendEmailVerification(u, buildEmailVerificationActionCodeSettings())
+    if (isCustomAuthEmailEnabled()) {
+      const token = await u.getIdToken()
+      await sendCustomEmailVerificationRequest(token)
+    } else {
+      await sendEmailVerification(u, buildEmailVerificationActionCodeSettings())
+    }
   }, [firebaseEnabled])
 
   const refreshAuthUser = useCallback(async (): Promise<boolean> => {
