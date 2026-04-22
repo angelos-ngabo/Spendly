@@ -101,7 +101,7 @@ export function SignUpPage() {
                 id="su-fullName"
                 label="Full name"
                 autoComplete="name"
-                placeholder="e.g. Ngabo Angelos"
+                placeholder="e.g. Kalisa Johnson"
                 leadingIcon={<User strokeWidth={1.75} />}
                 error={form.formState.errors.fullName?.message}
                 {...form.register('fullName')}
