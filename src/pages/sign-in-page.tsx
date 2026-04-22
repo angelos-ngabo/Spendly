@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CheckCircle2, Info } from 'lucide-react'
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { applyActionCode } from 'firebase/auth'
+import { CheckCircle2, Info, Loader2 } from 'lucide-react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { APP_BASE, FORGOT_PASSWORD_PATH, SIGN_UP_PATH } from '@/components/layout/nav'
+import { APP_BASE, FORGOT_PASSWORD_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '@/components/layout/nav'
 import { BackToHomeLink } from '@/components/auth/back-to-home-link'
 import { AuthCard } from '@/components/auth/auth-card'
 import { EmailVerificationPending } from '@/components/auth/email-verification-pending'
@@ -18,7 +19,10 @@ import { AlertBanner } from '@/components/ui/alert-banner'
 import { FirebaseSetupHelp } from '@/components/shared/firebase-setup-help'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/context/auth-context'
+import { mapFirebaseAuthError } from '@/lib/firebase-auth-errors'
+import { isWrongModeForEmailVerification, parseFirebaseOutOfBandParams } from '@/lib/parse-firebase-out-of-band-params'
 import { signInSchema, type SignInValues } from '@/lib/auth-schemas'
+import { getFirebaseAuth } from '@/services/firebase/config'
 
 export type SignInLocationState = {
   signupWelcome?: boolean
@@ -27,6 +31,12 @@ export type SignInLocationState = {
   emailVerifiedFromLink?: boolean
   passwordResetSuccess?: boolean
 }
+
+function emailVerifyDoneStorageKey(oobCode: string) {
+  return `spendly_verify_done_${oobCode.slice(0, 48)}`
+}
+
+const emailVerifyApplyInFlight = new Set<string>()
 
 export function SignInPage() {
   const {
@@ -40,6 +50,12 @@ export function SignInPage() {
   } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const { oobCode, mode } = useMemo(
+    () => parseFirebaseOutOfBandParams(location.search, location.hash),
+    [location.search, location.hash],
+  )
+  const verifyAppliedRef = useRef<string | null>(null)
+  const [emailLinkBusy, setEmailLinkBusy] = useState(false)
 
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
@@ -56,6 +72,67 @@ export function SignInPage() {
     resolver: zodResolver(signInSchema) as Resolver<SignInValues>,
     defaultValues: { email: '', password: '' },
   })
+
+  /** Move `oobCode` from hash into the query string so SPA routing sees it reliably (same idea as reset password). */
+  useLayoutEffect(() => {
+    if (!oobCode) return
+    const inSearch = new URLSearchParams(location.search).has('oobCode')
+    if (inSearch) return
+    if (!location.hash && typeof window !== 'undefined' && !window.location.hash) return
+    const qs = new URLSearchParams()
+    qs.set('oobCode', oobCode)
+    qs.set('mode', mode ?? 'verifyEmail')
+    navigate({ pathname: location.pathname, search: `?${qs.toString()}`, hash: '' }, { replace: true })
+  }, [oobCode, mode, location.hash, location.pathname, location.search, navigate])
+
+  /** Apply Firebase email verification when the template links directly to `/sign-in?oobCode=…`. */
+  useEffect(() => {
+    if (!firebaseEnabled || authLoading) return
+    const code = oobCode.trim()
+    if (!code) return
+
+    if (isWrongModeForEmailVerification(mode)) {
+      toast.error('That link is not for email verification.')
+      navigate({ pathname: location.pathname, search: '', hash: '' }, { replace: true })
+      return
+    }
+
+    if (sessionStorage.getItem(emailVerifyDoneStorageKey(code)) === '1' || verifyAppliedRef.current === code) {
+      navigate(SIGN_IN_PATH, { replace: true, state: { emailVerifiedFromLink: true } })
+      return
+    }
+
+    if (emailVerifyApplyInFlight.has(code)) return
+    emailVerifyApplyInFlight.add(code)
+
+    let cancelled = false
+    setEmailLinkBusy(true)
+
+    void (async () => {
+      try {
+        const auth = getFirebaseAuth()
+        await applyActionCode(auth, code)
+        if (cancelled) return
+        verifyAppliedRef.current = code
+        sessionStorage.setItem(emailVerifyDoneStorageKey(code), '1')
+        if (auth.currentUser) {
+          await refreshAuthUser()
+        }
+        navigate(SIGN_IN_PATH, { replace: true, state: { emailVerifiedFromLink: true } })
+      } catch (e) {
+        if (cancelled) return
+        toast.error(mapFirebaseAuthError(e))
+        navigate(SIGN_IN_PATH, { replace: true })
+      } finally {
+        emailVerifyApplyInFlight.delete(code)
+        if (!cancelled) setEmailLinkBusy(false)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [authLoading, firebaseEnabled, mode, navigate, oobCode, refreshAuthUser, location.pathname])
 
   useLayoutEffect(() => {
     const s = (location.state ?? null) as SignInLocationState | null
@@ -118,6 +195,12 @@ export function SignInPage() {
   return (
     <AuthLayout>
       <div className="flex w-full flex-col">
+        {firebaseEnabled && emailLinkBusy ? (
+          <div className="mb-6 flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/[0.06] px-4 py-3 text-sm text-foreground">
+            <Loader2 className="h-5 w-5 shrink-0 animate-spin text-primary" aria-hidden />
+            <span className="font-medium">Confirming your email…</span>
+          </div>
+        ) : null}
         {firebaseEnabled && verifiedBanner && !user ? (
           <div className="mb-6 shrink-0">
             <AlertBanner

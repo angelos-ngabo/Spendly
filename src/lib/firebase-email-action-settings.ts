@@ -1,5 +1,5 @@
 import type { ActionCodeSettings } from 'firebase/auth'
-import { RESET_PASSWORD_PATH, VERIFY_EMAIL_PATH } from '@/components/layout/nav'
+import { RESET_PASSWORD_PATH, SIGN_IN_PATH } from '@/components/layout/nav'
 
 /**
  * Canonical site origin for Firebase `continueUrl` (email verification, etc.).
@@ -31,10 +31,14 @@ function appOrigin(): string {
 
 /**
  * `sendEmailVerification` / resend: `url` must be an absolute URL whose **hostname** is in Firebase Authorized domains.
+ *
+ * **Important:** Point the Firebase Console → Authentication → Templates → **Email address verification**
+ * action URL at this same path (e.g. `https://…/sign-in`) so users skip Firebase’s hosted page and land on Spendly,
+ * where `SignInPage` applies `oobCode` and shows the success banner. Legacy `/verify-email` links still work.
  */
 export function buildEmailVerificationActionCodeSettings(): ActionCodeSettings {
   const origin = appOrigin()
-  const url = origin ? `${origin}${VERIFY_EMAIL_PATH}` : ''
+  const url = origin ? `${origin}${SIGN_IN_PATH}` : ''
 
   if (!url || !/^https?:\/\//i.test(url)) {
     throw new Error(

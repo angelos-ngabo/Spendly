@@ -57,3 +57,9 @@ export function isWrongModeForPasswordReset(mode: string | null | undefined): bo
   if (!mode) return false
   return mode.toLowerCase() !== 'resetpassword'
 }
+
+/** True when `mode` is explicitly something other than Firebase’s email verification action. */
+export function isWrongModeForEmailVerification(mode: string | null | undefined): boolean {
+  if (!mode) return false
+  return mode.toLowerCase() !== 'verifyemail'
+}

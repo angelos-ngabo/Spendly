@@ -9,7 +9,7 @@ export const SIGN_UP_PATH = '/sign-up' as const
 /** Primary sign-in route (aliases exist in `App.tsx`). */
 export const SIGN_IN_PATH = '/sign-in' as const
 
-/** Firebase email verification continue URL (must be an authorized domain in Firebase console). */
+/** Legacy route: older verification emails may still open `/verify-email?oobCode=…`. New sends use `SIGN_IN_PATH`. */
 export const VERIFY_EMAIL_PATH = '/verify-email' as const
 
 /** Password reset request (linked from sign-in). */
