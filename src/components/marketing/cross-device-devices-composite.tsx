@@ -51,7 +51,7 @@ export function CrossDeviceDevicesComposite({ className }: { className?: string 
         className,
       )}
       role="img"
-      aria-label="Spendly on laptop and mobile"
+      aria-label="Spendly on laptop and mobile devices"
     >
       <div className="w-full max-w-[min(100%,820px)] shrink md:max-w-[min(100%,680px)]">
         {laptopVisual === 'checking' ? (

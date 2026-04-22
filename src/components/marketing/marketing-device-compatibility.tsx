@@ -5,15 +5,15 @@ import { cn } from '@/lib/utils'
 const highlights = [
   {
     icon: RefreshCw,
-    text: 'Sync across devices',
+    text: 'Continuity across every device',
   },
   {
     icon: Wallet,
-    text: 'Track money on the go',
+    text: 'Capture spending wherever you are',
   },
   {
     icon: LayoutDashboard,
-    text: 'Full dashboard on desktop',
+    text: 'Full analytics on the big screen',
   },
 ] as const
 
@@ -30,19 +30,20 @@ export function MarketingDeviceCompatibility() {
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <p className="text-center text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#23A6F0]">
-          Use Spendly anywhere
+          Built for how you actually work
         </p>
         <div className="mx-auto mt-2 max-w-2xl text-center">
           <h2
             id="cross-device-heading"
             className="text-balance text-[1.65rem] font-bold leading-snug tracking-tight text-[#252B42] md:text-[1.85rem] lg:text-[2rem]"
           >
-            Access your finances anywhere
+            The same financial command center, phone to laptop
           </h2>
-          <p className="mt-2 text-sm font-semibold text-[#252B42]/80">One account, every device</p>
+          <p className="mt-2 text-sm font-semibold text-[#252B42]/80">Flexible access without sacrificing depth</p>
           <p className="mt-3 text-pretty text-xs font-medium leading-relaxed text-[#737373] sm:text-sm">
-            Use Spendly on your laptop or mobile device and stay in control of your income, expenses, and savings
-            wherever you are.
+            Move between mobile speed and desktop clarity as your day demands. Whether you reconcile at a desk or log a
+            purchase on the move, Spendly keeps the experience consistent so your insights stay current—not fragmented
+            across apps or spreadsheets.
           </p>
         </div>
 

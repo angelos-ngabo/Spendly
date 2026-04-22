@@ -3,23 +3,23 @@ import { BarChart3, PiggyBank, Sparkles, Wallet } from 'lucide-react'
 const cards = [
   {
     icon: Wallet,
-    title: 'Expense tracking',
-    body: 'Log income and expenses with categories, dates, and notes so your ledger stays audit-friendly.',
+    title: 'Cash flow you can trust',
+    body: 'Record income and spending with categories, dates, and notes so every line item is traceable. You gain a dependable ledger—and the confidence to plan without second-guessing the numbers.',
   },
   {
     icon: PiggyBank,
-    title: 'Savings management',
-    body: 'Reserve amounts toward goals while Spendly keeps your balance and savings in sync.',
+    title: 'Savings that stay on track',
+    body: 'Allocate balances toward goals and watch progress update as life happens. Spendly keeps savings visible alongside everyday spending so priorities do not quietly slip.',
   },
   {
     icon: BarChart3,
-    title: 'Analytics & insights',
-    body: 'Trends, category breakdowns, and monthly summaries tuned for fast decisions.',
+    title: 'Analytics built for decisions',
+    body: 'Trends, category splits, and period summaries turn raw transactions into context. See where momentum is building—or where to adjust—before the month closes.',
   },
   {
     icon: Sparkles,
-    title: 'Spendly AI assistant',
-    body: 'Ask natural-language questions about your activity — powered locally from your data, no external API.',
+    title: 'Spendly AI',
+    body: 'Ask questions in plain language and get answers grounded in your own data. Surface habits, compare periods, and explore scenarios with an assistant designed for money—not generic chat.',
   },
 ] as const
 
@@ -29,11 +29,11 @@ export function MarketingFeatures() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-balance text-[1.65rem] font-bold leading-snug tracking-tight text-[#252B42] md:text-[1.85rem] lg:text-[2rem]">
-            Everything you need to run your personal finances
+            One workspace for disciplined personal finance
           </h2>
           <p className="mt-3 text-pretty text-xs font-medium leading-relaxed text-[#737373] sm:text-sm">
-            The same structure as the Financen template feature band — adapted for Spendly: tracking, savings,
-            analytics, and AI in one product story.
+            Tracking, goals, analytics, and AI live together so you spend less time reconciling spreadsheets and more
+            time acting on what the numbers are telling you.
           </p>
         </div>
 

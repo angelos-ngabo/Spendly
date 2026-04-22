@@ -85,7 +85,7 @@ export function MarketingHeroPhonePremium({ className }: { className?: string })
           <div className={cn(heroPhoneVisualScale)} style={{ transformOrigin: '50% 100%' }}>
             <img
               src={pngSrc}
-              alt="Spendly on a smartphone"
+              alt="Spendly mobile workspace on a smartphone"
               width={900}
               height={1800}
               className="relative z-[1] mx-auto h-auto w-full object-contain drop-shadow-2xl"

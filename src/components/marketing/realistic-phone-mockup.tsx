@@ -151,7 +151,7 @@ function OverviewScreen({ size }: { size: Size }) {
         </div>
         <div>
           <p className={cn('font-semibold tracking-tight', tight ? 'text-[10px]' : 'text-[11px]')}>Spendly</p>
-          <p className={cn('font-medium text-zinc-500', tight ? 'text-[8px]' : 'text-[9px]')}>Overview</p>
+          <p className={cn('font-medium text-zinc-500', tight ? 'text-[8px]' : 'text-[9px]')}>Dashboard</p>
         </div>
       </div>
 
@@ -219,7 +219,7 @@ function SignInScreen({ size }: { size: Size }) {
         </div>
         <p className={cn('mt-3 font-bold text-[#1e293b]', tight ? 'text-sm' : 'text-base')}>Spendly</p>
         <p className="mt-1 text-center text-[11px] font-bold text-[#0f172a]">Welcome back</p>
-        <p className="mt-0.5 text-center text-[9px] font-medium text-[#64748b]">Sign in to continue</p>
+        <p className="mt-0.5 text-center text-[9px] font-medium text-[#64748b]">Secure access to your workspace</p>
       </div>
 
       <div className={cn('mt-4 space-y-2', tight && 'mt-3')}>

@@ -6,11 +6,11 @@ export function MarketingVisualDemo() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-balance text-[1.65rem] font-bold leading-snug tracking-tight text-[#252B42] md:text-[1.85rem]">
-            Built for calm financial routines
+            A dashboard designed for clarity and control
           </h2>
           <p className="mt-3 text-pretty text-xs font-medium leading-relaxed text-[#737373] sm:text-sm">
-            A guided tour of the kind of clarity Spendly surfaces — visual from the Financen template, narrative
-            rewritten for budgeting workflows.
+            This is the Spendly workspace in action: balances, charts, and summaries arranged so you see what moved,
+            why it matters, and what deserves attention next—without hunting through tabs or exports.
           </p>
         </div>
 
@@ -19,7 +19,7 @@ export function MarketingVisualDemo() {
             <div className="relative aspect-[370/250] w-full bg-[#F7F7F7]">
               <img
                 src={landingAssets.visualDemo}
-                alt="Spendly workspace preview — charts and cards (static image)"
+                alt="Spendly workspace preview showing balances, charts, and summary cards"
                 width={740}
                 height={500}
                 className="h-full w-full object-cover"
@@ -30,17 +30,17 @@ export function MarketingVisualDemo() {
           </figure>
 
           <div className="space-y-6">
-            <h3 className="text-lg font-bold text-[#252B42]">Most trusted structure, rebuilt for individuals</h3>
+            <h3 className="text-lg font-bold text-[#252B42]">Insight-forward design for individuals and households</h3>
             <p className="text-sm font-medium leading-relaxed text-[#737373]">
-              Spendly keeps the polished layout language of the Financen finance landing — full-width sections, strong
-              typographic hierarchy, and generous whitespace — while focusing every paragraph on personal money
-              management.
+              Typography, spacing, and hierarchy are tuned for financial data: dense when you need detail, breathable
+              when you need to think. The result is a product surface that feels credible today and still readable after
+              months of daily use.
             </p>
             <ul className="space-y-4">
               {[
-                'Workspace themes that respect marketing vs. app surfaces',
-                'Exports and backups when you are ready to own your data',
-                'Spendly AI that never leaves your browser for guest sessions',
+                'Separate presentation for marketing pages and the signed-in workspace so context always feels intentional.',
+                'Exports and backups when you want a portable copy of your ledger or an extra layer of ownership.',
+                'Spendly AI runs in your browser for guest sessions—your questions stay with your session, not a third-party model API.',
               ].map((line) => (
                 <li key={line} className="flex gap-3 text-sm font-semibold text-[#252B42]">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#23A6F0]" aria-hidden />

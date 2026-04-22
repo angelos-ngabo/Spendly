@@ -43,7 +43,7 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
           </div>
           <div className="min-w-0">
             <div className="text-[17px] font-bold leading-tight tracking-tight text-white">Spendly</div>
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/70">Personal finance</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/70">Money workspace</div>
           </div>
         </Link>
 
@@ -54,7 +54,7 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
             className="h-10 rounded-full bg-[#23A6F0] px-4 text-xs font-bold text-white shadow-md shadow-black/25 hover:bg-[#1a8fd4]"
           >
             <Link to={SIGN_UP_PATH} onClick={closeMobileMenu}>
-              Get Started
+              Create account
             </Link>
           </Button>
           <Button
@@ -81,7 +81,7 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
             Devices
           </a>
           <a href="#demo" className={linkClass}>
-            Product tour
+            Preview
           </a>
           <a href="#cta" className={linkClass}>
             Get started
@@ -95,7 +95,7 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
               size="sm"
               className="h-auto px-0 text-[11px] font-bold tracking-wide text-white hover:bg-transparent hover:text-white sm:text-xs"
             >
-              <Link to="/sign-in">Login</Link>
+              <Link to="/sign-in">Sign in</Link>
             </Button>
           ) : null}
           <Button
@@ -128,10 +128,10 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
               Devices
             </a>
             <a href="#demo" className={mobileNavLinkClass} onClick={closeMobileMenu}>
-              Product tour
+              Preview
             </a>
             <Link to={SIGN_UP_PATH} className={mobileNavLinkClass} onClick={closeMobileMenu}>
-              Get Started
+              Create account
             </Link>
             <div className="my-2 border-t border-white/10" />
             <button
@@ -142,7 +142,7 @@ export function MarketingNav({ firebaseEnabled, onPrimaryCta }: { firebaseEnable
                 onPrimaryCta()
               }}
             >
-              Open as guest
+              Try as guest
             </button>
           </nav>
         </div>

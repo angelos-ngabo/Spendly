@@ -47,7 +47,7 @@ export function MarketingDeviceHero({ className }: { className?: string }) {
           className,
         )}
         aria-busy
-        aria-label="Loading device preview"
+        aria-label="Loading product preview"
       >
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#23A6F0] border-t-transparent" />
       </div>
@@ -74,7 +74,7 @@ export function MarketingDeviceHero({ className }: { className?: string }) {
         className,
       )}
       role="img"
-      aria-label="Spendly on laptop and phone mockups"
+      aria-label="Spendly product experience on laptop and smartphone"
     >
       <div className="relative w-fit max-w-full pb-6 sm:pb-8 md:pb-10 lg:pb-12">
         <img

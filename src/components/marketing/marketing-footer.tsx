@@ -8,7 +8,8 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
         <div>
           <h3 className="text-sm font-bold text-[#252B42]">Spendly</h3>
           <p className="mt-2 text-xs font-medium leading-relaxed text-[#737373]">
-            Personal finance workspace with local-first guest mode and optional cloud sync.
+            A modern personal finance workspace: start privately in your browser, then upgrade to encrypted cloud sync,
+            backups, and multi-device access when you are ready.
           </p>
         </div>
         <div>
@@ -26,12 +27,12 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
             </li>
             <li>
               <a href="#demo" className="hover:text-[#23A6F0]">
-                Product tour
+                Platform preview
               </a>
             </li>
             <li>
               <a href="#cta" className="hover:text-[#23A6F0]">
-                Workspace
+                Get started
               </a>
             </li>
           </ul>
@@ -39,10 +40,10 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
         <div>
           <h3 className="text-sm font-bold text-[#252B42]">Product</h3>
           <ul className="mt-2 space-y-1.5 text-xs font-medium text-[#737373]">
-            <li>Transactions & categories</li>
-            <li>Savings reservations</li>
-            <li>Analytics charts</li>
-            <li>Spendly AI</li>
+            <li>Categorized transactions & notes</li>
+            <li>Goal-based savings allocations</li>
+            <li>Trend and category analytics</li>
+            <li>Spendly AI for natural-language insight</li>
           </ul>
         </div>
         <div>
@@ -62,7 +63,7 @@ export function MarketingFooter({ firebaseEnabled }: { firebaseEnabled: boolean 
                 </li>
               </>
             ) : (
-              <li className="text-[11px] leading-relaxed">Cloud accounts require environment configuration.</li>
+              <li className="text-[11px] leading-relaxed">Cloud sign-in requires Firebase environment configuration.</li>
             )}
           </ul>
           {!firebaseEnabled ? (

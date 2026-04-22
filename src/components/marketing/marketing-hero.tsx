@@ -33,14 +33,15 @@ export function MarketingHero({
         <div className="mt-10 flex flex-col items-center gap-10 md:mt-12 lg:mt-16 lg:flex-row lg:items-center lg:justify-center lg:gap-8 xl:gap-9">
           <div className="w-full max-w-xl flex-none space-y-6 text-center lg:max-w-[min(100%,28rem)] lg:text-left">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/80 sm:text-[11px]">
-              Your financial assistant
+              Personal finance, intelligently organized
             </p>
             <h1 className="text-balance text-[2.1rem] font-extrabold leading-[1.12] tracking-tight text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[2.85rem]">
-              Manage money with clarity, not complexity.
+              See your money clearly—and steer it with confidence.
             </h1>
             <p className="mx-auto max-w-lg text-pretty text-sm font-medium leading-relaxed text-white/88 md:text-[15px] md:leading-relaxed lg:mx-0">
-              Spendly helps you track income and expenses, plan savings, and understand patterns — with Spendly AI for
-              plain-language insights. Start on your device, then turn on cloud sync when you are ready.
+              Bring income, spending, and savings into one workspace built for fast decisions. Spendly AI reads your
+              activity and answers in plain language so you spot patterns, catch drift early, and stay aligned with your
+              goals. Begin on this device in seconds; add secure cloud sync when you create an account.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
               <Button
@@ -49,7 +50,7 @@ export function MarketingHero({
                 onClick={onGuestStart}
                 className="h-12 gap-2 rounded-[27px] bg-[#23A6F0] px-8 text-sm font-bold text-white shadow-lg shadow-black/30 hover:bg-[#1a8fd4]"
               >
-                Track your spending
+                Start free in your browser
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button
@@ -64,9 +65,9 @@ export function MarketingHero({
             </div>
             {firebaseEnabled ? (
               <p className="text-xs font-medium text-white/70">
-                Need cloud backup?{' '}
+                Want backups and sync across devices?{' '}
                 <Link to="/sign-up" className="font-semibold text-white underline-offset-2 hover:underline">
-                  Create an account
+                  Create a free account
                 </Link>
               </p>
             ) : null}
